@@ -1,12 +1,16 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 export default function StreamTextViewer() {
   const [text, setText] = useState("");
   const [isStreaming, setIsStreaming] = useState(false);
 
+  const bufferRef = useRef("");
+  const flushTimerRef = useRef<number | null>(null);
+
   async function startStreaming() {
     setText("");
     setIsStreaming(true);
+    bufferRef.current = "";
 
     const response = await fetch("http://localhost:4000/api/stream/text");
 
@@ -18,19 +22,35 @@ export default function StreamTextViewer() {
     const reader = response.body.getReader();
     const decoder = new TextDecoder();
 
+    const flushToUI = () => {
+      setText(bufferRef.current);
+      flushTimerRef.current = null;
+    };
+
     while (true) {
       const { value, done } = await reader.read();
       if (done) break;
 
       const chunk = decoder.decode(value);
 
-      // Append one character at a time
       for (const char of chunk) {
-        setText(prev => prev + char);
-        await sleep(15); // controls typing speed
+        bufferRef.current += char;
+
+        // Limit React updates (~60fps)
+        if (!flushTimerRef.current) {
+          flushTimerRef.current = window.setTimeout(flushToUI, 16);
+        }
+
+        await sleep(15); // typing effect
       }
     }
 
+    // final flush
+    if (flushTimerRef.current) {
+      clearTimeout(flushTimerRef.current);
+    }
+
+    setText(bufferRef.current);
     setIsStreaming(false);
   }
 

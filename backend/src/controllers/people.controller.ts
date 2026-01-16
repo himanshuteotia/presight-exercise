@@ -22,5 +22,5 @@ export function getPeople(req: Request, res: Response) {
   }
 
   const start = (page - 1) * limit;
-  res.json({ data: result.slice(start, start + Number(limit)), total: result.length });
+  res.json({ data: result.slice(start, start + limit), total: result.length });
 }

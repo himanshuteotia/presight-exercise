@@ -1,18 +1,24 @@
 import { Router } from "express";
-import type { ProcessResult } from "../../../shared/types/process";
+import { queue } from "../services/queue.service";
+import { worker } from "../workers/worker.manager";
+import { ProcessStatus } from "../../../shared/types/process";
 
 const router = Router();
-const queue = new Map<string, ProcessResult>();
 
 router.post("/", (_, res) => {
   const id = crypto.randomUUID();
-  queue.set(id, { id, status: "pending" });
 
-  setTimeout(() => {
-    queue.set(id, { id, status: "done", result: "Processed result" });
-  }, 2000);
+  const item = {
+    id,
+    status: ProcessStatus.PENDING,
+    result: undefined
+  };
 
-  res.json(queue.get(id));
+  queue.set(id, item);
+
+  worker.postMessage(id);
+
+  res.json(item);
 });
 
 export default router;

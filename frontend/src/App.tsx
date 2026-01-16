@@ -5,6 +5,7 @@ import PeopleList from "./components/PeopleList";
 import SearchBox from "./components/SearchBox";
 import StreamTextViewer from "./components/stream/StreamTextViewer";
 import type { Filters } from "./state/filters";
+import ProcessList from "./components/process/ProcessList";
 
 export default function App() {
   const [filters, setFilters] = useState<Filters>({});
@@ -25,6 +26,7 @@ export default function App() {
           <PeopleList filters={filters} />
 
           <StreamTextViewer />
+          <ProcessList />
         </div>
       </div>
     </div>

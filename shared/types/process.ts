@@ -1,4 +1,7 @@
-export type ProcessStatus = "pending" | "done";
+export enum ProcessStatus {
+  PENDING = "pending",
+  DONE = "done"
+}
 
 export type ProcessResult = {
   id: string;

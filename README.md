@@ -23,8 +23,7 @@ The focus is correctness, performance, and clarity rather than UI polish.
 
 ### List & performance
 
-* Paginated API
-* Virtual scrolling with infinite loading
+* API Pagination through Virtual scrolling with infinite loading
 * Only visible rows are rendered
 * Search by first name and last name
 * Sidebar filters (top 20 hobbies and nationalities)

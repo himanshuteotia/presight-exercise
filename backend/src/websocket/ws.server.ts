@@ -1,3 +1,4 @@
+import http from "http";
 import { WebSocketServer } from "ws";
 
 export const wss = new WebSocketServer({ noServer: true });
@@ -7,6 +8,16 @@ export function broadcast(message: any) {
   wss.clients.forEach((client) => {
     if (client.readyState === 1) {
       client.send(data);
+    }
+  });
+}
+
+export function setupWebSocket(server: http.Server) {
+  server.on("upgrade", (req, socket, head) => {
+    if (req.url === "/ws") {
+      wss.handleUpgrade(req, socket, head, ws => {
+        wss.emit("connection", ws, req);
+      });
     }
   });
 }

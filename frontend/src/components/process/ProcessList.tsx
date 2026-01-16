@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useWebSocket } from "../../hooks/useWebSocket";
-import type { ProcessResult } from "../../../../shared/types/process";
+import { ProcessStatus, type ProcessResult } from "../../../../shared/types/process";
 
 export default function ProcessList() {
   const [items, setItems] = useState<ProcessResult[]>([]);
@@ -34,8 +34,8 @@ export default function ProcessList() {
       {items.map((item) => (
         <div key={item.id} className="process-item">
           <span>{item.id.slice(0, 8)}</span>
-          <span className={item.status}>
-            {item.status === "pending" ? "Pending…" : item.result}
+          <span className={item.status.toLowerCase()}>
+            {item.status === ProcessStatus.PENDING ? "Pending…" : item.result}
           </span>
         </div>
       ))}

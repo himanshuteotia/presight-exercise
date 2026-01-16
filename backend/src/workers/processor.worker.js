@@ -8,7 +8,7 @@ parentPort.on("message", (id) => {
   setTimeout(() => {
     parentPort.postMessage({
       id,
-      result: `Processed result for request ${id}`
+      result: `Processed result for request ${id}`,
     });
   }, 2000);
 });

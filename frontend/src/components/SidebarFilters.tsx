@@ -7,7 +7,7 @@ type MetaResponse = {
 };
 
 export default function SidebarFilters({
-  onChange
+  onChange,
 }: {
   onChange?: (filters: Filters) => void;
 }) {
@@ -16,7 +16,7 @@ export default function SidebarFilters({
 
   useEffect(() => {
     fetch("http://localhost:4000/api/meta")
-      .then(r => r.json())
+      .then((r) => r.json())
       .then(setMeta);
   }, []);
 
@@ -31,16 +31,14 @@ export default function SidebarFilters({
     <aside className="sidebar">
       <div className="sidebar-section">
         <div className="sidebar-title">Hobbies</div>
-        {meta.topHobbies.map(hobby => (
+        {meta.topHobbies.map((hobby) => (
           <div
             key={hobby}
-            className={`filter-item ${
-              filters.hobby === hobby ? "active" : ""
-            }`}
+            className={`filter-item ${filters.hobby === hobby ? "active" : ""}`}
             onClick={() =>
               applyFilter({
                 ...filters,
-                hobby: filters.hobby === hobby ? undefined : hobby
+                hobby: filters.hobby === hobby ? undefined : hobby,
               })
             }
           >
@@ -51,7 +49,7 @@ export default function SidebarFilters({
 
       <div className="sidebar-section">
         <div className="sidebar-title">Nationalities</div>
-        {meta.topNationalities.map(n => (
+        {meta.topNationalities.map((n) => (
           <div
             key={n}
             className={`filter-item ${
@@ -60,8 +58,7 @@ export default function SidebarFilters({
             onClick={() =>
               applyFilter({
                 ...filters,
-                nationality:
-                  filters.nationality === n ? undefined : n
+                nationality: filters.nationality === n ? undefined : n,
               })
             }
           >

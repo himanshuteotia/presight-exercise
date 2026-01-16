@@ -19,7 +19,7 @@ export default function App() {
           <SearchBox
             value={filters.search ?? ""}
             onChange={(value) =>
-              setFilters(f => ({ ...f, search: value || undefined }))
+              setFilters((f) => ({ ...f, search: value || undefined }))
             }
           />
 

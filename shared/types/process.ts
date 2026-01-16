@@ -1,6 +1,6 @@
 export enum ProcessStatus {
   PENDING = "pending",
-  DONE = "done"
+  DONE = "done",
 }
 
 export type ProcessResult = {

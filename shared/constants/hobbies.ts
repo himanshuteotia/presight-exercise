@@ -8,7 +8,7 @@ export const HOBBIES = [
   "Art",
   "Photography",
   "Fitness",
-  "Writing"
+  "Writing",
 ] as const;
 
-export type Hobby = typeof HOBBIES[number];
+export type Hobby = (typeof HOBBIES)[number];

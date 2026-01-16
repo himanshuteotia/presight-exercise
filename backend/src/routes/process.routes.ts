@@ -11,7 +11,7 @@ router.post("/", (_, res) => {
   const item = {
     id,
     status: ProcessStatus.PENDING,
-    result: undefined
+    result: undefined,
   };
 
   queue.set(id, item);

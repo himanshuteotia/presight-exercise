@@ -9,5 +9,8 @@ export const people: Person[] = Array.from({ length: 1000 }).map(() => ({
   last_name: faker.person.lastName(),
   age: faker.number.int({ min: 18, max: 70 }),
   nationality: faker.location.country(),
-  hobbies: faker.helpers.arrayElements(HOBBIES, faker.number.int({ min: 0, max: 6 }))
+  hobbies: faker.helpers.arrayElements(
+    HOBBIES,
+    faker.number.int({ min: 0, max: 6 })
+  ),
 }));

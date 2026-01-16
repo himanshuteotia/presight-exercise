@@ -12,7 +12,7 @@ app.use(cors());
 
 const limiter = rateLimit({
   windowMs: 60 * 1000, // 1 minute
-  max: 60              // 60 requests per minute
+  max: 60, // 60 requests per minute
 });
 
 app.use(limiter);

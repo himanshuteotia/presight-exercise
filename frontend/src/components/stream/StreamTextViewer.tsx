@@ -7,7 +7,7 @@ export default function StreamTextViewer() {
   const [isStreaming, setIsStreaming] = useState(false);
 
   const bufferRef = useRef("");
-  const flushTimerRef = useRef<number | null>(null);
+  const rafIdRef = useRef<number | null>(null);
 
   async function startStreaming() {
     setText("");
@@ -26,7 +26,7 @@ export default function StreamTextViewer() {
 
     const flushToUI = () => {
       setText(bufferRef.current);
-      flushTimerRef.current = null;
+      rafIdRef.current = null; // allow next frame
     };
 
     while (true) {
@@ -38,18 +38,18 @@ export default function StreamTextViewer() {
       for (const char of chunk) {
         bufferRef.current += char;
 
-        // Limit React updates (~60fps)
-        if (!flushTimerRef.current) {
-          flushTimerRef.current = window.setTimeout(flushToUI, 16);
+        // Schedule one UI update per frame
+        if (rafIdRef.current === null) {
+          rafIdRef.current = requestAnimationFrame(flushToUI);
         }
 
         await sleep(15); // typing effect
       }
     }
 
-    // final flush
-    if (flushTimerRef.current) {
-      clearTimeout(flushTimerRef.current);
+    // Final flush
+    if (rafIdRef.current !== null) {
+      cancelAnimationFrame(rafIdRef.current);
     }
 
     setText(bufferRef.current);

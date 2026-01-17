@@ -1,0 +1,22 @@
+.process-box {
+    margin-top: 32px;
+    padding: 16px;
+    background: #ffffff;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+}
+
+.process-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    font-size: 14px;
+}
+
+.process-item .pending {
+    color: #9ca3af;
+}
+
+.process-item .done {
+    color: #16a34a;
+}

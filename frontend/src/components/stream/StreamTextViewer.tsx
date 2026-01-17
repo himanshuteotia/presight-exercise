@@ -1,4 +1,6 @@
+import "./stream.css";
 import { useRef, useState } from "react";
+import { env } from "../../env";
 
 export default function StreamTextViewer() {
   const [text, setText] = useState("");
@@ -12,7 +14,7 @@ export default function StreamTextViewer() {
     setIsStreaming(true);
     bufferRef.current = "";
 
-    const response = await fetch("http://localhost:4000/api/stream/text");
+    const response = await fetch(`${env.apiBaseUrl}/api/stream/text`);
 
     if (!response.body) {
       setIsStreaming(false);

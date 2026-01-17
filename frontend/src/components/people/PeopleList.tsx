@@ -1,6 +1,10 @@
-import type { Person } from "../../../shared/types/person";
-import { useInfiniteVirtualList } from "../hooks/useInfiniteVirtualList";
-import { Filters } from "../state/filters";
+
+import "./people.css";
+import type { Person } from "../../../../shared/types/person";
+import { useInfiniteVirtualList } from "../../hooks/useInfiniteVirtualList";
+import { Filters } from "../../state/filters";
+import PersonCard from "./PersonCard";
+import { env } from "../../env";
 
 const PAGE_SIZE = 30;
 
@@ -27,7 +31,7 @@ export default function PeopleList({
       });
 
       const res = await fetch(
-        `http://localhost:4000/api/people?${params}`
+        `${env.apiBaseUrl}/api/people?${params}`
       );
       const json = await res.json();
       return json.data as Person[];
@@ -63,41 +67,6 @@ export default function PeopleList({
               </div>
             );
           })}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function PersonCard({ person }: { person: Person }) {
-  return (
-    <div className="card">
-      <img
-        src={person.avatar}
-        className="avatar"
-        onError={(e) => {
-          e.currentTarget.onerror = null;
-          e.currentTarget.src = "/avatar-placeholder.png";
-        }}
-      />
-
-      <div className="card-content">
-        <div className="name">
-          {person.first_name} {person.last_name}
-        </div>
-
-        <div className="meta">
-          {person.nationality} • {person.age} yrs
-        </div>
-
-        <div className="hobbies">
-          {person.hobbies.slice(0, 2).join(", ")}
-          {person.hobbies.length > 2 && (
-            <span className="more">
-              {" "}
-              (+{person.hobbies.length - 2})
-            </span>
-          )}
         </div>
       </div>
     </div>

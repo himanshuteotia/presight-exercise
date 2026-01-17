@@ -83,11 +83,20 @@ Runs on `http://localhost:4000`
 
 ### Frontend
 
+Create a .env file inside the frontend folder:
+
+```bash
+VITE_API_BASE_URL=http://localhost:4000
+VITE_WS_BASE_URL=ws://localhost:4000
+```
+then run:
+
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
+
 
 Runs on the port shown by Vite (usually `http://localhost:5173`)
 

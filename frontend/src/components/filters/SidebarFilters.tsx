@@ -1,5 +1,6 @@
+import "./filters.css";
 import { useEffect, useState } from "react";
-import type { Filters } from "../state/filters";
+import type { Filters } from "../../state/filters";
 
 type MetaResponse = {
   topHobbies: string[];

@@ -1,8 +1,10 @@
+import "./styles/base.css";
+import "./styles/layout.css";
+
 import { useState } from "react";
-import "./App.css";
-import SidebarFilters from "./components/SidebarFilters";
-import PeopleList from "./components/PeopleList";
-import SearchBox from "./components/SearchBox";
+import SidebarFilters from "./components/filters/SidebarFilters";
+import PeopleList from "./components/people/PeopleList";
+import SearchBox from "./components/ui/SearchBox";
 import StreamTextViewer from "./components/stream/StreamTextViewer";
 import type { Filters } from "./state/filters";
 import ProcessList from "./components/process/ProcessList";

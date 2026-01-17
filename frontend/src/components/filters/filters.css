@@ -1,0 +1,37 @@
+.sidebar {
+    width: 260px;
+    flex-shrink: 0;
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 16px;
+    border: 1px solid #e5e7eb;
+}
+
+.sidebar-section+.sidebar-section {
+    margin-top: 24px;
+}
+
+.sidebar-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #374151;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.filter-item {
+    font-size: 14px;
+    padding: 6px 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    color: #374151;
+}
+
+.filter-item:hover {
+    background-color: #f3f4f6;
+}
+
+.filter-item.active {
+    background-color: #e5e7eb;
+    font-weight: 600;
+}

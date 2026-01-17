@@ -1,0 +1,28 @@
+.page {
+    max-width: 1200px;
+    margin: 32px auto;
+    padding: 0 16px;
+}
+
+.layout {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+}
+
+.list-container {
+    flex: 1;
+    min-width: 0;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .layout {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        order: -1;
+    }
+}

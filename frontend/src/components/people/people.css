@@ -1,0 +1,72 @@
+/* ---------- Virtual list ---------- */
+.virtual-container {
+    height: calc(100vh - 150px);
+    overflow-y: auto;
+    width: 100%;
+}
+
+.virtual-inner {
+    position: relative;
+    width: 100%;
+}
+
+.virtual-row {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+.loader {
+    padding: 16px;
+    text-align: center;
+    font-size: 14px;
+    color: #6b7280;
+}
+
+/* ---------- Person card ---------- */
+.card {
+    display: flex;
+    gap: 16px;
+    padding: 16px;
+    margin-bottom: 12px;
+    background: #ffffff;
+    border-radius: 10px;
+    border: 1px solid #e5e7eb;
+}
+
+.avatar {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    min-height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: #e5e7eb;
+    display: block;
+}
+
+.card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.name {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.meta {
+    font-size: 13px;
+    color: #6b7280;
+}
+
+.hobbies {
+    font-size: 13px;
+    color: #374151;
+}
+
+.more {
+    color: #6b7280;
+}

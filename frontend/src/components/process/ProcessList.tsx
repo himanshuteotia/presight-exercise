@@ -1,3 +1,4 @@
+import "./process.css";
 import { useEffect, useState } from "react";
 import { useWebSocket } from "../../hooks/useWebSocket";
 import { ProcessStatus, type ProcessResult } from "../../../../shared/types/process";

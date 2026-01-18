@@ -1,10 +1,11 @@
 
 import "./people.css";
+import { env } from "../../env";
+import PersonCard from "./PersonCard";
+import { Filters } from "../../state/filters";
+import { useDebounce } from "../../hooks/useDebounce";
 import type { Person } from "../../../../shared/types/person";
 import { useInfiniteVirtualList } from "../../hooks/useInfiniteVirtualList";
-import { Filters } from "../../state/filters";
-import PersonCard from "./PersonCard";
-import { env } from "../../env";
 
 const PAGE_SIZE = 30;
 
@@ -13,6 +14,8 @@ export default function PeopleList({
 }: {
   filters?: Filters;
 }) {
+  const debouncedSearch = useDebounce(filters?.search, 400);
+
   const {
     parentRef,
     rowVirtualizer,
@@ -20,23 +23,42 @@ export default function PeopleList({
     isLoading
   } = useInfiniteVirtualList<Person>({
     estimateSize: 96,
-    deps: [filters?.hobby, filters?.nationality, filters?.search],
-    fetchPage: async (page) => {
+
+    deps: [
+      filters?.hobby,
+      filters?.nationality,
+      debouncedSearch
+    ],
+
+    fetchPage: async (page, signal) => {
       const params = new URLSearchParams({
         page: String(page),
         limit: String(PAGE_SIZE),
         ...(filters?.hobby && { hobby: filters.hobby }),
         ...(filters?.nationality && { nationality: filters.nationality }),
-        ...(filters?.search && { search: filters.search })
+        ...(debouncedSearch && { search: debouncedSearch })
       });
 
-      const res = await fetch(
-        `${env.apiBaseUrl}/api/people?${params}`
-      );
-      const json = await res.json();
-      return json.data as Person[];
+      try {
+        const res = await fetch(
+          `${env.apiBaseUrl}/api/people?${params}`,
+          { signal }
+        );
+
+        const json = await res.json();
+
+        return json.data as Person[];
+      } catch (err: any) {
+        if (err.name === "AbortError") {
+          console.log("aborted", { page, search: debouncedSearch });
+          return [];
+        }
+        throw err;
+      }
     }
+
   });
+
 
   return (
     <div className="list-container">

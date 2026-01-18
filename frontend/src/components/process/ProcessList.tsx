@@ -2,6 +2,7 @@ import "./process.css";
 import { useEffect, useState } from "react";
 import { useWebSocket } from "../../hooks/useWebSocket";
 import { ProcessStatus, type ProcessResult } from "../../../../shared/types/process";
+import { env } from "../../env";
 
 export default function ProcessList() {
   const [items, setItems] = useState<ProcessResult[]>([]);
@@ -16,7 +17,7 @@ export default function ProcessList() {
     async function createRequests() {
       const requests = await Promise.all(
         Array.from({ length: 20 }).map(() =>
-          fetch("http://localhost:4000/api/process", {
+          fetch(`${env.apiBaseUrl}/api/process`, {
             method: "POST",
           }).then((r) => r.json())
         )

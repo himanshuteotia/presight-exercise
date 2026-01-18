@@ -1,6 +1,7 @@
 import "./filters.css";
 import { useEffect, useState } from "react";
 import type { Filters } from "../../state/filters";
+import { env } from "../../env";
 
 type MetaResponse = {
   topHobbies: string[];
@@ -16,7 +17,7 @@ export default function SidebarFilters({
   const [filters, setFilters] = useState<Filters>({});
 
   useEffect(() => {
-    fetch("http://localhost:4000/api/meta")
+    fetch(`${env.apiBaseUrl}/api/meta`)
       .then((r) => r.json())
       .then(setMeta);
   }, []);
